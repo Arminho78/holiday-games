@@ -1,8 +1,11 @@
 "use client";
 
+import { m } from "framer-motion";
 import type { Game } from "@/types/game";
+import { staggerContainer, staggerItem } from "@/lib/motion";
 import { cn, formatGameType } from "@/lib/utils";
 import { GameDetailGallery } from "@/components/game-detail-gallery";
+import { resolveGameCarouselImages } from "@/lib/game-assets";
 
 interface GameDetailProps {
   game: Game;
@@ -11,13 +14,7 @@ interface GameDetailProps {
 }
 
 export function GameDetail({ game, onPlayNow, canPlay }: GameDetailProps) {
-  const galleryImages = [
-    game.images.thumbnail,
-    ...game.images.screenshots,
-    ...(game.images.banner ? [game.images.banner] : []),
-  ].filter(
-    (src, index, arr) => arr.indexOf(src) === index,
-  );
+  const galleryImages = resolveGameCarouselImages(game);
 
   const playLabel =
     game.status === "coming-soon"
@@ -28,69 +25,81 @@ export function GameDetail({ game, onPlayNow, canPlay }: GameDetailProps) {
 
   return (
     <div className="relative isolate">
-      {/* Ambient background */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 right-0 h-72 w-96 rounded-full bg-accent/10 blur-[100px]"
+        className="pointer-events-none absolute -top-24 right-0 h-80 w-[28rem] rounded-full bg-accent/12 blur-[110px]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/3 -left-24 h-64 w-64 rounded-full bg-fuchsia-600/10 blur-[80px]"
+        className="pointer-events-none absolute top-1/3 -left-24 h-72 w-72 rounded-full bg-fuchsia-600/10 blur-[90px]"
       />
 
-      <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 px-4 py-10 sm:px-6 lg:gap-12 lg:py-14">
-        {/* Gallery + sidebar */}
-        <div className="grid gap-8 lg:grid-cols-5 lg:gap-10">
-          <div className="lg:col-span-3">
+      <m.div
+        className="relative mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
+        variants={staggerContainer}
+        initial="initial"
+        animate="animate"
+      >
+        <div className="grid gap-10 lg:grid-cols-5 lg:gap-12">
+          <m.div variants={staggerItem} className="lg:col-span-3">
             <GameDetailGallery images={galleryImages} title={game.title} />
-          </div>
+          </m.div>
 
-          <aside className="flex flex-col gap-6 lg:col-span-2">
+          <m.aside
+            variants={staggerItem}
+            className="flex flex-col gap-7 lg:col-span-2"
+          >
             {game.status !== "available" && (
               <StatusBadge status={game.status} />
             )}
 
-            <h1 className="text-3xl font-extrabold tracking-tight text-zinc-50 sm:text-4xl">
+            <h1 className="font-display text-3xl font-extrabold tracking-tight text-zinc-50 sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
               {game.title}
             </h1>
 
             <SpecsCard game={game} />
 
-            <button
-              type="button"
-              disabled={!canPlay}
-              onClick={onPlayNow}
-              className="inline-flex h-14 w-full items-center justify-center gap-3 rounded-xl bg-accent px-8 text-lg font-bold text-white shadow-lg shadow-accent/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/40 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:hover:scale-100 sm:w-auto sm:min-w-[220px]"
-            >
-              <PlayIcon />
-              {playLabel}
-            </button>
+            <div className="flex justify-center">
+              <m.button
+                type="button"
+                disabled={!canPlay}
+                onClick={onPlayNow}
+                whileHover={canPlay ? { scale: 1.02 } : undefined}
+                whileTap={canPlay ? { scale: 0.98 } : undefined}
+                className="inline-flex h-12 w-fit max-w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 text-base font-bold text-white btn-glow disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none sm:h-14 sm:gap-3 sm:px-8 sm:text-lg sm:min-w-[220px]"
+              >
+                <PlayIcon />
+                {playLabel}
+              </m.button>
+            </div>
 
             {game.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {game.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-border-subtle bg-surface-elevated/80 px-3 py-1 text-xs font-medium text-zinc-400"
+                    className="rounded-full border border-border-subtle/80 bg-surface-elevated/60 px-3 py-1 text-xs font-medium text-zinc-400"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
             )}
-          </aside>
+          </m.aside>
         </div>
 
-        {/* Long description */}
-        <section className="rounded-2xl border border-border-subtle bg-surface/60 p-6 backdrop-blur-sm sm:p-8">
-          <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest text-violet-400">
+        <m.section
+          variants={staggerItem}
+          className="mt-10 rounded-2xl border border-border-subtle/80 bg-surface/50 p-7 backdrop-blur-sm sm:mt-12 sm:p-9 lg:mt-14"
+        >
+          <h2 className="mb-5 font-display text-sm font-semibold uppercase tracking-[0.2em] text-violet-400">
             About this game
           </h2>
-          <p className="max-w-3xl text-base leading-relaxed text-zinc-300 sm:text-lg">
+          <p className="text-base leading-[1.75] text-zinc-300 sm:text-lg sm:leading-[1.8]">
             {game.longDescription}
           </p>
-        </section>
-      </div>
+        </m.section>
+      </m.div>
     </div>
   );
 }
@@ -103,11 +112,11 @@ function SpecsCard({ game }: { game: Game }) {
   ];
 
   return (
-    <dl className="grid gap-3 rounded-2xl border border-border-subtle bg-surface p-5 ring-1 ring-white/5">
+    <dl className="grid gap-4 rounded-2xl border border-border-subtle/80 bg-surface/80 p-6 ring-1 ring-white/5">
       {specs.map(({ label, value }) => (
         <div
           key={label}
-          className="flex items-center justify-between gap-4 border-b border-border-subtle/60 pb-3 last:border-0 last:pb-0"
+          className="flex items-center justify-between gap-4 border-b border-border-subtle/50 pb-4 last:border-0 last:pb-0"
         >
           <dt className="text-sm font-medium text-zinc-500">{label}</dt>
           <dd
@@ -137,11 +146,13 @@ function StatusBadge({ status }: { status: Game["status"] }) {
         };
 
   return (
-    <span
+    <m.span
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
       className={`inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-semibold ${config.className}`}
     >
       {config.label}
-    </span>
+    </m.span>
   );
 }
 

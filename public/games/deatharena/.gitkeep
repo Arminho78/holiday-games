@@ -1,0 +1,5 @@
+# Assets:
+#   game.json          — title, descriptions, genre, players, gameType, tags
+#   cover.jpg          — carousel (first slide)
+#   thumbnail01–05.jpg — carousel rotation
+#   thumbnail.jpg      — listing card

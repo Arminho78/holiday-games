@@ -1,19 +1,40 @@
+"use client";
+
 import Link from "next/link";
+import { m } from "framer-motion";
+import { staggerContainer, staggerItem } from "@/lib/motion";
 
 export default function GameNotFound() {
   return (
-    <div className="mx-auto flex max-w-lg flex-1 flex-col items-center justify-center gap-6 px-4 py-24 text-center sm:px-6">
-      <span className="text-6xl font-black text-accent/20">404</span>
-      <h1 className="text-2xl font-bold text-zinc-100">Game not found</h1>
-      <p className="text-zinc-500">
-        This game doesn&apos;t exist or may have been removed.
-      </p>
-      <Link
-        href="/"
-        className="inline-flex h-11 items-center justify-center rounded-lg bg-accent px-6 text-sm font-semibold text-white shadow-md shadow-accent/20 transition hover:shadow-lg hover:shadow-accent/30"
+    <m.div
+      className="mx-auto flex max-w-lg flex-1 flex-col items-center justify-center gap-7 px-4 py-28 text-center sm:px-6"
+      variants={staggerContainer}
+      initial="initial"
+      animate="animate"
+    >
+      <m.span
+        variants={staggerItem}
+        className="font-display text-8xl font-black text-accent/20"
       >
-        Back to all games
-      </Link>
-    </div>
+        404
+      </m.span>
+      <m.h1
+        variants={staggerItem}
+        className="font-display text-2xl font-bold text-zinc-100 sm:text-3xl"
+      >
+        Game not found
+      </m.h1>
+      <m.p variants={staggerItem} className="text-base leading-relaxed text-zinc-500">
+        This game doesn&apos;t exist or may have been removed.
+      </m.p>
+      <m.div variants={staggerItem} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+        <Link
+          href="/"
+          className="inline-flex h-12 items-center justify-center rounded-xl bg-accent px-8 text-sm font-semibold text-white btn-glow"
+        >
+          Back to all games
+        </Link>
+      </m.div>
+    </m.div>
   );
 }

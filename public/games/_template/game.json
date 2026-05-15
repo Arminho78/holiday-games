@@ -1,0 +1,10 @@
+{
+  "title": "Game Title",
+  "genre": "action",
+  "subgenre": "your-subgenre",
+  "players": "1 player",
+  "description": "Short card description.",
+  "longDescription": "Full about section text shown on the game detail page.",
+  "gameType": "scratch",
+  "tags": ["tag-one", "tag-two"]
+}

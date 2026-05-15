@@ -1,6 +1,11 @@
 import type { Game } from "@/types/game";
+import type { GameRegistryEntry } from "@/types/game-registry";
+import { deatharena } from "@/data/games/deatharena";
+import { resolveGame } from "@/lib/game-json";
 
-export const games: Game[] = [
+/** Registry entries — JSON-backed games need `public/games/[slug]/game.json`. */
+const gameEntries: (GameRegistryEntry | Game)[] = [
+  deatharena,
   {
     slug: "snowball-dash",
     title: "Snowball Dash",
@@ -89,6 +94,9 @@ export const games: Game[] = [
     },
   },
 ];
+
+/** Resolved games (registry + `game.json` merged at load time). */
+export const games: Game[] = gameEntries.map((entry) => resolveGame(entry));
 
 export function getGameBySlug(slug: string): Game | undefined {
   return games.find((g) => g.slug === slug);

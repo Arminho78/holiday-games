@@ -2,6 +2,8 @@ export type GameType = "unity-webgl" | "html5" | "iframe" | "scratch";
 
 export type GameStatus = "available" | "coming-soon" | "maintenance";
 
+export type CarouselLayout = "standard" | "legacy";
+
 export type Genre =
   | "action"
   | "puzzle"
@@ -59,6 +61,11 @@ export interface Game {
   featured: boolean;
   status: GameStatus;
   tags: string[];
+  /**
+   * `standard` — cover.jpg + thumbnail01–05.jpg under public/games/[slug]/
+   * `legacy` — banner / screenshots from `images` (default)
+   */
+  carouselLayout?: CarouselLayout;
   /** Scratch / TurboWarp options — only when gameType is "scratch" */
   scratch?: ScratchConfig;
   /** Unity-specific build paths — only required when gameType is "unity-webgl" */

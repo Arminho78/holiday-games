@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { m } from "framer-motion";
 import type { GameType } from "@/types/game";
 import {
   getGameIframeProps,
@@ -256,14 +257,16 @@ function IdleOverlay({
             Ready to play
           </p>
           <p className="relative text-xl font-bold text-zinc-100">{title}</p>
-          <button
+          <m.button
             type="button"
             onClick={onPlay}
-            className="relative inline-flex h-14 items-center justify-center gap-3 rounded-xl bg-accent px-10 text-lg font-bold text-white shadow-lg shadow-accent/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/40 active:scale-[0.98]"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="relative inline-flex h-14 items-center justify-center gap-3 rounded-xl bg-accent px-10 text-lg font-bold text-white btn-glow"
           >
             <PlayIcon />
             Play Now
-          </button>
+          </m.button>
           <p className="relative text-xs text-zinc-600">
             Game loads when you press play — no data used until then.
           </p>
@@ -344,14 +347,16 @@ function PlayerControlButton({
   children: React.ReactNode;
 }) {
   return (
-    <button
+    <m.button
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/60 text-zinc-300 backdrop-blur-sm transition hover:border-accent/40 hover:bg-black/80 hover:text-white"
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.92 }}
+      className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/60 text-zinc-300 backdrop-blur-sm transition-colors hover:border-accent/40 hover:bg-black/80 hover:text-white"
     >
       {children}
-    </button>
+    </m.button>
   );
 }
 

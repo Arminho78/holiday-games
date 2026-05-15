@@ -1,0 +1,10 @@
+{
+  "title": "Deatharena",
+  "genre": "action",
+  "subgenre": "arena",
+  "players": "1 player",
+  "description": "Battle for survival in a fast-paced Scratch arena. Dodge, strike, and outlast your opponents.",
+  "longDescription": "Deatharena drops you into a lethal ring where every second counts. Built in Scratch and playable right in your browser, this arena fighter challenges your reflexes and timing. Learn the patterns, chain your moves, and climb the scoreboard — no downloads required.",
+  "gameType": "scratch",
+  "tags": ["scratch", "arena", "action", "singleplayer"]
+}

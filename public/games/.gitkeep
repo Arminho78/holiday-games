@@ -1,1 +1,9 @@
-
+# Browser game assets — one folder per slug:
+#
+#   public/games/[slug]/
+#     thumbnail.jpg      — listing card
+#     cover.jpg          — detail gallery / banner
+#     screenshot-1.jpg   — optional extras
+#     index.html         — self-hosted html5 / unity builds
+#
+# Scratch games only need images here; the project is embedded via URL.

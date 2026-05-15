@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import type { Game } from "@/types/game";
-import { resolveGameEmbed } from "@/lib/game-embed";
+import { isScratchGameType, resolveGameEmbed } from "@/lib/game-embed";
 import { GameDetail } from "@/components/game-detail";
 import { GamePlaySection } from "@/components/game-play-section";
 import { GamePlayer } from "@/components/game-player";
+import { ScratchEmbed } from "@/components/scratch-embed";
 
 interface GamePageShellProps {
   game: Game;
@@ -14,8 +15,8 @@ interface GamePageShellProps {
 export function GamePageShell({ game }: GamePageShellProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const canPlay = game.status === "available";
-
-  const embed = useMemo(() => resolveGameEmbed(game), [game]);
+  const isScratch = isScratchGameType(game.gameType);
+  const embed = resolveGameEmbed(game);
 
   const unavailableMessage =
     game.status === "coming-soon"
@@ -33,21 +34,29 @@ export function GamePageShell({ game }: GamePageShellProps) {
     });
   }
 
+  const playerProps = {
+    active: isPlaying,
+    onActiveChange: setIsPlaying,
+    disabled: !canPlay,
+    disabledMessage: unavailableMessage,
+  };
+
   return (
     <>
       <GameDetail game={game} onPlayNow={handlePlayNow} canPlay={canPlay} />
       <GamePlaySection game={game}>
-        <GamePlayer
-          title={game.title}
-          src={"error" in embed ? "" : embed.src}
-          gameType={game.gameType}
-          embedProvider={"error" in embed ? undefined : embed.provider}
-          embedError={"error" in embed ? embed.error : undefined}
-          active={isPlaying}
-          onActiveChange={setIsPlaying}
-          disabled={!canPlay}
-          disabledMessage={unavailableMessage}
-        />
+        {isScratch ? (
+          <ScratchEmbed game={game} {...playerProps} />
+        ) : (
+          <GamePlayer
+            title={game.title}
+            src={"error" in embed ? "" : embed.src}
+            gameType={game.gameType}
+            embedProvider={"error" in embed ? undefined : embed.provider}
+            embedError={"error" in embed ? embed.error : undefined}
+            {...playerProps}
+          />
+        )}
       </GamePlaySection>
     </>
   );
