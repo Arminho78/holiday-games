@@ -2,6 +2,7 @@
 
 import { m } from "framer-motion";
 import type { Game } from "@/types/game";
+import { GameDetailSectionHeading } from "@/components/game-detail-section-heading";
 import { easeOutExpo } from "@/lib/motion";
 
 interface GamePlaySectionProps {
@@ -22,9 +23,7 @@ export function GamePlaySection({ game, children }: GamePlaySectionProps) {
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.55, ease: easeOutExpo }}
       >
-        <h2 className="mb-8 font-display text-sm font-semibold uppercase tracking-[0.2em] text-violet-400">
-          Play {game.title}
-        </h2>
+        <GameDetailSectionHeading>Play {game.title}</GameDetailSectionHeading>
         {children}
       </m.div>
     </section>

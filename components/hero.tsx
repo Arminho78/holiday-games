@@ -4,12 +4,6 @@ import Link from "next/link";
 import { m } from "framer-motion";
 import { staggerContainer, staggerItem } from "@/lib/motion";
 
-const stats = [
-  { icon: "🎮", label: "Games", value: "10+" },
-  { icon: "🌍", label: "Platform", value: "Browser" },
-  { icon: "🎉", label: "Price", value: "Free" },
-] as const;
-
 export function Hero() {
   return (
     <section className="relative isolate overflow-hidden border-b border-border-subtle/40 bg-surface">
@@ -30,36 +24,23 @@ export function Hero() {
         initial="initial"
         animate="animate"
       >
-        <m.span
-          variants={staggerItem}
-          className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-accent/25 bg-accent/10 px-4 py-2 text-xs font-semibold tracking-wide text-violet-300 backdrop-blur-sm"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-400" />
-          </span>
-          New games dropping soon
-        </m.span>
-
         <m.h1
           variants={staggerItem}
-          className="font-display max-w-4xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
+          className="font-display flex w-full max-w-4xl flex-col items-center gap-2 leading-[1.05] tracking-tight"
         >
-          <span className="bg-gradient-to-b from-white via-zinc-100 to-zinc-500 bg-clip-text text-transparent">
-            Play Amazing
-          </span>
-          <br />
-          <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-amber-300 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-amber-300 bg-clip-text text-[clamp(2.5rem,8vw,4.25rem)] font-extrabold text-transparent">
             Holiday Games
+          </span>
+          <span className="bg-gradient-to-b from-white via-zinc-100 to-zinc-500 bg-clip-text text-[clamp(1.35rem,4.65vw,2.5rem)] font-normal text-transparent">
+            Work Hard, Game Hard
           </span>
         </m.h1>
 
         <m.p
           variants={staggerItem}
-          className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-zinc-400 sm:text-xl sm:leading-relaxed"
+          className="mx-auto mt-7 w-4/5 max-w-[28.8rem] text-lg leading-relaxed text-zinc-400 sm:text-xl sm:leading-relaxed"
         >
-          Hand-crafted browser games built for cozy nights, holiday vibes, and
-          one-more-run fun.
+          Hand-crafted browser games built for fun and to learn the art of coding
         </m.p>
 
         <m.div
@@ -98,28 +79,6 @@ export function Hero() {
               Learn More
             </Link>
           </m.div>
-        </m.div>
-
-        <m.div
-          variants={staggerItem}
-          className="mt-20 grid w-full max-w-lg grid-cols-1 gap-8 border-t border-border-subtle/50 pt-10 sm:grid-cols-3 sm:gap-4"
-        >
-          {stats.map((stat) => (
-            <m.div
-              key={stat.label}
-              className="flex flex-col items-center gap-1.5"
-              whileHover={{ y: -2 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            >
-              <span className="text-xl" aria-hidden>
-                {stat.icon}
-              </span>
-              <span className="font-display text-lg font-bold text-zinc-100">
-                {stat.value}
-              </span>
-              <span className="text-sm text-zinc-500">{stat.label}</span>
-            </m.div>
-          ))}
         </m.div>
       </m.div>
     </section>

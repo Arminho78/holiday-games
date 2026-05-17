@@ -12,6 +12,7 @@ const gameEntries: (GameRegistryEntry | Game)[] = [
     genre: "action",
     subgenre: "endless-runner",
     players: "1 player",
+    developer: "Holiday Games",
     description:
       "Race through a winter wonderland dodging obstacles and collecting presents.",
     longDescription:
@@ -43,6 +44,7 @@ const gameEntries: (GameRegistryEntry | Game)[] = [
     genre: "arcade",
     subgenre: "clicker",
     players: "1 player",
+    developer: "Holiday Games",
     description:
       "Smash as many spooky pumpkins as you can before time runs out!",
     longDescription:
@@ -67,6 +69,7 @@ const gameEntries: (GameRegistryEntry | Game)[] = [
     genre: "strategy",
     subgenre: "tower-defense",
     players: "1-2 players",
+    developer: "Holiday Games",
     description:
       "Command an army of elves to defend Santa's workshop from waves of mischievous goblins.",
     longDescription:

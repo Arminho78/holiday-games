@@ -56,6 +56,7 @@ export function mergeGameFromJson(
     genre: json.genre,
     subgenre: json.subgenre,
     players: json.players,
+    developer: json.developer,
     description: json.description,
     longDescription: json.longDescription,
     gameType: json.gameType,

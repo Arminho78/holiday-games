@@ -3,6 +3,7 @@
   "genre": "action",
   "subgenre": "your-subgenre",
   "players": "1 player",
+  "developer": "Studio name",
   "description": "Short card description.",
   "longDescription": "Full about section text shown on the game detail page.",
   "gameType": "scratch",

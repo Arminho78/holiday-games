@@ -239,7 +239,7 @@ function IdleOverlay({
   onPlay: () => void;
 }) {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 bg-gradient-to-br from-surface via-surface-elevated to-violet-950/30 p-6 text-center">
+    <div className="absolute inset-0 flex w-full flex-col items-center justify-center gap-4 bg-gradient-to-br from-surface via-surface-elevated to-violet-950/30 p-6 text-center">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:48px_48px]"
@@ -253,16 +253,18 @@ function IdleOverlay({
         </>
       ) : (
         <>
-          <p className="relative text-sm font-medium text-zinc-500">
+          <p className="relative text-sm font-medium leading-snug text-zinc-500">
             Ready to play
           </p>
-          <p className="relative text-xl font-bold text-zinc-100">{title}</p>
+          <p className="relative text-xl font-bold leading-tight text-zinc-100">
+            {title}
+          </p>
           <m.button
             type="button"
             onClick={onPlay}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="relative inline-flex h-14 items-center justify-center gap-3 rounded-xl bg-accent px-10 text-lg font-bold text-white btn-glow"
+            className="relative mx-auto inline-flex h-14 w-full max-w-xs items-center justify-center gap-3 rounded-xl bg-accent px-10 text-lg font-bold text-white btn-glow sm:w-auto sm:max-w-none"
           >
             <PlayIcon />
             Play Now

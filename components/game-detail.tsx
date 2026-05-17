@@ -5,6 +5,7 @@ import type { Game } from "@/types/game";
 import { staggerContainer, staggerItem } from "@/lib/motion";
 import { cn, formatGameType } from "@/lib/utils";
 import { GameDetailGallery } from "@/components/game-detail-gallery";
+import { GameDetailSectionHeading } from "@/components/game-detail-section-heading";
 import { resolveGameCarouselImages } from "@/lib/game-assets";
 
 interface GameDetailProps {
@@ -40,51 +41,38 @@ export function GameDetail({ game, onPlayNow, canPlay }: GameDetailProps) {
         initial="initial"
         animate="animate"
       >
-        <div className="grid gap-10 lg:grid-cols-5 lg:gap-12">
+        <div className="grid gap-8 lg:grid-cols-5 lg:gap-12">
           <m.div variants={staggerItem} className="lg:col-span-3">
             <GameDetailGallery images={galleryImages} title={game.title} />
           </m.div>
 
           <m.aside
             variants={staggerItem}
-            className="flex flex-col gap-7 lg:col-span-2"
+            className="flex w-full flex-col gap-6 lg:col-span-2"
           >
             {game.status !== "available" && (
               <StatusBadge status={game.status} />
             )}
 
-            <h1 className="font-display text-3xl font-extrabold tracking-tight text-zinc-50 sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
+            <h1 className="font-display text-3xl font-extrabold leading-tight tracking-tight text-zinc-50 sm:text-4xl lg:text-[2.75rem]">
               {game.title}
             </h1>
 
             <SpecsCard game={game} />
 
-            <div className="flex justify-center">
+            <div className="flex w-full justify-center">
               <m.button
                 type="button"
                 disabled={!canPlay}
                 onClick={onPlayNow}
                 whileHover={canPlay ? { scale: 1.02 } : undefined}
                 whileTap={canPlay ? { scale: 0.98 } : undefined}
-                className="inline-flex h-12 w-fit max-w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 text-base font-bold text-white btn-glow disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none sm:h-14 sm:gap-3 sm:px-8 sm:text-lg sm:min-w-[220px]"
+                className="mx-auto inline-flex h-12 w-full max-w-xs items-center justify-center gap-2 rounded-xl bg-accent px-6 text-base font-bold text-white btn-glow disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none sm:h-14 sm:w-auto sm:max-w-none sm:min-w-[220px] sm:gap-3 sm:px-8 sm:text-lg"
               >
                 <PlayIcon />
                 {playLabel}
               </m.button>
             </div>
-
-            {game.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {game.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-border-subtle/80 bg-surface-elevated/60 px-3 py-1 text-xs font-medium text-zinc-400"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
           </m.aside>
         </div>
 
@@ -92,9 +80,7 @@ export function GameDetail({ game, onPlayNow, canPlay }: GameDetailProps) {
           variants={staggerItem}
           className="mt-10 rounded-2xl border border-border-subtle/80 bg-surface/50 p-7 backdrop-blur-sm sm:mt-12 sm:p-9 lg:mt-14"
         >
-          <h2 className="mb-5 font-display text-sm font-semibold uppercase tracking-[0.2em] text-violet-400">
-            About this game
-          </h2>
+          <GameDetailSectionHeading>About this game</GameDetailSectionHeading>
           <p className="text-base leading-[1.75] text-zinc-300 sm:text-lg sm:leading-[1.8]">
             {game.longDescription}
           </p>
@@ -107,7 +93,9 @@ export function GameDetail({ game, onPlayNow, canPlay }: GameDetailProps) {
 function SpecsCard({ game }: { game: Game }) {
   const specs = [
     { label: "Genre", value: game.genre },
+    { label: "Subgenre", value: game.subgenre },
     { label: "Players", value: game.players },
+    { label: "Developer", value: game.developer },
     { label: "Game type", value: formatGameType(game.gameType) },
   ];
 
@@ -122,7 +110,7 @@ function SpecsCard({ game }: { game: Game }) {
           <dd
             className={cn(
               "text-right text-sm font-semibold text-zinc-100",
-              label === "Genre" && "capitalize",
+              (label === "Genre" || label === "Subgenre") && "capitalize",
             )}
           >
             {value}

@@ -77,11 +77,16 @@ export function GameCard({ game, index = 0 }: GameCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
-        <div className="flex items-center gap-2 text-xs">
+        <div className="flex flex-wrap items-center gap-2 text-xs">
           <span className="rounded-full border border-accent/20 bg-accent/10 px-2.5 py-0.5 font-semibold capitalize text-violet-300">
             {game.genre}
           </span>
-          <span className="text-zinc-500">{game.players}</span>
+          <span className="rounded-full border border-border-subtle/80 bg-surface-elevated/60 px-2.5 py-0.5 font-medium capitalize text-zinc-400">
+            {game.subgenre}
+          </span>
+          <span className="rounded-full border border-border-subtle/80 bg-surface-elevated/60 px-2.5 py-0.5 font-medium text-zinc-400">
+            {game.players}
+          </span>
         </div>
 
         <h3 className="font-display text-lg font-bold leading-snug text-zinc-100 transition-colors duration-200 group-hover:text-white sm:text-xl">

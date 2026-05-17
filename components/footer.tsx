@@ -20,14 +20,9 @@ export function Footer() {
       transition={{ duration: 0.5, ease: easeOutExpo }}
     >
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 py-12 sm:flex-row sm:justify-between sm:px-6 sm:py-14">
-        <div className="flex items-center gap-2.5">
-          <span className="text-xl" aria-hidden>
-            🎄
-          </span>
-          <span className="font-display bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-sm font-bold tracking-tight text-transparent">
-            Holiday Games
-          </span>
-        </div>
+        <span className="font-display bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-sm font-bold tracking-tight text-transparent">
+          Holiday Games
+        </span>
 
         <nav className="flex flex-wrap items-center justify-center gap-6 text-sm">
           {footerLinks.map(({ label, href }) => (

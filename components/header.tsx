@@ -13,15 +13,7 @@ export function Header() {
       transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:h-[4.25rem] sm:px-6">
-        <Link href="/" className="group flex items-center gap-2.5">
-          <m.span
-            className="text-2xl"
-            aria-hidden
-            whileHover={{ rotate: [-3, 3, 0], scale: 1.1 }}
-            transition={{ duration: 0.4 }}
-          >
-            🎄
-          </m.span>
+        <Link href="/" className="group flex items-center">
           <span className="font-display bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-lg font-bold tracking-tight text-transparent transition-opacity group-hover:opacity-90">
             Holiday Games
           </span>

@@ -45,6 +45,7 @@ export interface Game {
   genre: Genre;
   subgenre: string;
   players: string;
+  developer: string;
   description: string;
   longDescription: string;
   images: GameImages;
