@@ -1,11 +1,11 @@
-import { games, getFeaturedGames } from "@/data/games";
+import { games, getFeaturedGames, getMoreGames } from "@/data/games";
 import { GameCard } from "@/components/game-card";
 import { Hero } from "@/components/hero";
 import { SectionHeading } from "@/components/section-heading";
 
 export default function HomePage() {
   const featured = getFeaturedGames();
-  const rest = games.filter((g) => !g.featured);
+  const rest = getMoreGames();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function HomePage() {
         >
           <SectionHeading
             title="Featured Games"
-            subtitle="Our top picks — polished, festive, and ready when you are."
+            subtitle="Our top picks - ready when you are."
           />
           <div className="grid gap-7 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
             {featured.map((game, i) => (

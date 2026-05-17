@@ -77,6 +77,7 @@ export function GameDetailGallery({ images, title }: GameDetailGalleryProps) {
                 alt={`${title} ${carouselImageLabel(activeIndex)}`}
                 fill
                 priority={activeIndex === 0}
+                loading={activeIndex === 0 ? "eager" : "lazy"}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 60vw"
                 className="object-cover"
                 onError={() => markBroken(activeIndex)}

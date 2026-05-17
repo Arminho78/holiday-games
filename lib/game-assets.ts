@@ -50,6 +50,12 @@ export function resolveGameCarouselImages(
   game: Pick<Game, "slug" | "images" | "carouselLayout">,
 ): string[] {
   if (game.carouselLayout === "standard") {
+    const slides: string[] = [];
+    if (game.images.banner) slides.push(game.images.banner);
+    for (const src of game.images.screenshots) {
+      if (!slides.includes(src)) slides.push(src);
+    }
+    if (slides.length > 0) return slides;
     return gameCarouselImagePaths(game.slug);
   }
 

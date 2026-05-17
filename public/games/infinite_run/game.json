@@ -1,0 +1,13 @@
+{
+  "title": "Infinite Run",
+  "genre": "action",
+  "subgenre": "endless-runner",
+  "players": "Singleplayer",
+  "developer": "Miluminati",
+  "description": "Jump, dodge, and keep running in this fast-paced endless runner built in Scratch.",
+  "longDescription": "Infinite Run challenges you to stay ahead of the obstacles for as long as you can. Time your jumps, react quickly, and chase a new high score every run. Built in Scratch and playable right in your browser — no download required.",
+  "gameType": "scratch",
+  "gameUrl": "https://scratch.mit.edu/projects/1320515669/embed",
+  "featured": "y",
+  "tags": ["scratch", "jump and run", "endless runner", "singleplayer"]
+}

@@ -9,9 +9,7 @@ import type {
 /** Build-time / routing config — copy and specs live in `public/games/[slug]/game.json`. */
 export interface GameRegistryEntry {
   slug: string;
-  featured: boolean;
   status: GameStatus;
-  gameUrl: string;
   carouselLayout?: CarouselLayout;
   scratch?: ScratchConfig;
   unity?: UnityWebGLConfig;

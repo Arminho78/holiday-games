@@ -1,11 +1,13 @@
 import type { Game } from "@/types/game";
 import type { GameRegistryEntry } from "@/types/game-registry";
 import { deatharena } from "@/data/games/deatharena";
+import { infinite_run } from "@/data/games/infinite_run";
 import { resolveGame } from "@/lib/game-json";
 
 /** Registry entries — JSON-backed games need `public/games/[slug]/game.json`. */
 const gameEntries: (GameRegistryEntry | Game)[] = [
   deatharena,
+  infinite_run,
   {
     slug: "snowball-dash",
     title: "Snowball Dash",
@@ -28,7 +30,7 @@ const gameEntries: (GameRegistryEntry | Game)[] = [
     thumbnail: "/games/snowball-dash/thumbnail.png",
     gameType: "unity-webgl",
     gameUrl: "index.html",
-    featured: true,
+    featured: false,
     status: "coming-soon",
     tags: ["winter", "christmas", "runner", "singleplayer"],
     unity: {
@@ -59,7 +61,7 @@ const gameEntries: (GameRegistryEntry | Game)[] = [
     thumbnail: "/games/pumpkin-smash/thumbnail.png",
     gameType: "html5",
     gameUrl: "index.html",
-    featured: true,
+    featured: false,
     status: "coming-soon",
     tags: ["halloween", "arcade", "clicker", "singleplayer"],
   },
@@ -111,4 +113,8 @@ export function getAvailableGames(): Game[] {
 
 export function getFeaturedGames(): Game[] {
   return games.filter((g) => g.featured);
+}
+
+export function getMoreGames(): Game[] {
+  return games.filter((g) => !g.featured);
 }

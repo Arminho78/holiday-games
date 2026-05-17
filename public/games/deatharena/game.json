@@ -3,9 +3,11 @@
   "genre": "Action",
   "subgenre": "Survival-arena",
   "players": "Singleplayer",
-  "developer": "Milob",
+  "developer": "Miluminati",
   "description": "Battle for survival in a fast-paced Sci-Fi arena. Dodge, strike, and outlast your enemies.",
-  "longDescription": "Death Arena drops you into a lethal arean where every second counts. Built in Scratch and playable right in your browser, this arena fighter challenges your reflexes and timing. Learn the patterns, chain your moves, and survive to win — no downloads required.",
+  "longDescription": "Death Arena drops you into a lethal arena where every second counts. Built in Scratch and playable right in your browser, this arena fighter challenges your reflexes and timing. Learn the patterns, chain your moves, and survive to win — no downloads required.",
   "gameType": "scratch",
+  "gameUrl": "https://scratch.mit.edu/projects/1316435844/embed",
+  "featured": "y",
   "tags": ["scratch", "arena", "action", "singleplayer"]
 }

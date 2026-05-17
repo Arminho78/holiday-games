@@ -1,6 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    localPatterns: [
+      {
+        pathname: "/games/**",
+        // omit `search` so cache-bust query strings (?v=mtime) are allowed
+      },
+    ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "uploads.scratch.mit.edu",
+        pathname: "/getthumbnail.jpeg",
+      },
+    ],
+  },
   async headers() {
     return [
       {

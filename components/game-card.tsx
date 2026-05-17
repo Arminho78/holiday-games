@@ -45,7 +45,9 @@ export function GameCard({ game, index = 0 }: GameCardProps) {
           initialSlide={0}
           className="game-card-swiper h-full w-full"
         >
-          {slides.map((src, i) => (
+          {slides.map((src, i) => {
+            const isLcpCandidate = index === 0 && i === 0;
+            return (
             <SwiperSlide key={src}>
               <Image
                 src={src}
@@ -55,11 +57,14 @@ export function GameCard({ game, index = 0 }: GameCardProps) {
                     : `${game.title} ${i.toString().padStart(2, "0")}`
                 }
                 fill
+                priority={isLcpCandidate}
+                loading={isLcpCandidate ? "eager" : "lazy"}
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
               />
             </SwiperSlide>
-          ))}
+            );
+          })}
         </Swiper>
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 transition-opacity duration-300 group-hover:opacity-100" />

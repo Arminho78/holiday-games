@@ -1,9 +1,13 @@
 import fs from "fs";
 import path from "path";
 import type { Game } from "@/types/game";
-import type { GameJsonFile } from "@/types/game-json";
+import type { GameJsonFeatured, GameJsonFile } from "@/types/game-json";
 import type { GameRegistryEntry } from "@/types/game-registry";
-import { gameCarouselImagePaths, gameImagePaths } from "@/lib/game-assets";
+import {
+  GAME_ASSET_FILES,
+  gameImagePaths,
+  gamePublicDir,
+} from "@/lib/game-assets";
 
 const GAME_JSON_FILENAME = "game.json";
 
@@ -28,6 +32,42 @@ export function hasGameJson(slug: string): boolean {
   return fs.existsSync(gameJsonFilePath(slug));
 }
 
+/** Appends `?v=mtime` so swapped JPEGs in `public/games/[slug]/` bypass browser / Next image cache. */
+export function versionedGameAssetUrl(slug: string, filename: string): string {
+  const url = `${gamePublicDir(slug)}/${filename}`;
+  const filePath = path.join(process.cwd(), "public", "games", slug, filename);
+  if (!fs.existsSync(filePath)) return url;
+  return `${url}?v=${Math.floor(fs.statSync(filePath).mtimeMs)}`;
+}
+
+/** Standard carousel paths with cache-busting query params (server-only). */
+export function buildStandardGameImages(slug: string) {
+  const filenames = [
+    GAME_ASSET_FILES.cover,
+    ...Array.from(
+      { length: 5 },
+      (_, i) => `thumbnail${String(i + 1).padStart(2, "0")}.jpg`,
+    ),
+  ];
+  const versioned = filenames.map((name) => versionedGameAssetUrl(slug, name));
+
+  return {
+    thumbnail: versionedGameAssetUrl(slug, GAME_ASSET_FILES.thumbnail),
+    screenshots: versioned.slice(1),
+    banner: versioned[0]!,
+  };
+}
+
+/** Maps `game.json` featured flag (`y` / `n`) to homepage section placement. */
+export function parseGameJsonFeatured(value: GameJsonFeatured | string): boolean {
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "y") return true;
+  if (normalized === "n") return false;
+  throw new Error(
+    `Invalid featured value "${value}" in game.json — use "y" (Featured) or "n" (More Games).`,
+  );
+}
+
 /** Merges registry config with JSON metadata and resolved asset paths. */
 export function mergeGameFromJson(
   entry: GameRegistryEntry,
@@ -37,14 +77,7 @@ export function mergeGameFromJson(
 
   const images =
     entry.carouselLayout === "standard"
-      ? (() => {
-          const carousel = gameCarouselImagePaths(entry.slug);
-          return {
-            thumbnail: assets.thumbnail,
-            screenshots: carousel.slice(1),
-            banner: carousel[0],
-          };
-        })()
+      ? buildStandardGameImages(entry.slug)
       : (entry.images ?? {
           thumbnail: assets.thumbnail,
           screenshots: [] as string[],
@@ -60,10 +93,10 @@ export function mergeGameFromJson(
     description: json.description,
     longDescription: json.longDescription,
     gameType: json.gameType,
+    gameUrl: json.gameUrl,
+    featured: parseGameJsonFeatured(json.featured),
     tags: json.tags,
-    featured: entry.featured,
     status: entry.status,
-    gameUrl: entry.gameUrl,
     carouselLayout: entry.carouselLayout,
     scratch: entry.scratch,
     unity: entry.unity,

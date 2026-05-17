@@ -7,5 +7,7 @@
   "description": "Short card description.",
   "longDescription": "Full about section text shown on the game detail page.",
   "gameType": "scratch",
+  "gameUrl": "https://scratch.mit.edu/projects/PROJECT_ID/embed",
+  "featured": "y",
   "tags": ["tag-one", "tag-two"]
 }
