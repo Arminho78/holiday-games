@@ -1,0 +1,13 @@
+{
+  "title": "Pong",
+  "genre": "arcade",
+  "subgenre": "classic",
+  "players": "1-2 players",
+  "developer": "Miluminati",
+  "description": "Classic paddle duel — rally the ball, outplay your opponent, and chase the high score.",
+  "longDescription": "Pong brings the arcade classic to your browser. Move your paddle, angle your returns, and stay focused as the ball speeds up. Built in Scratch with smooth controls — challenge a friend or test your reflexes solo. No download required.",
+  "gameType": "scratch",
+  "gameUrl": "https://scratch.mit.edu/projects/1321304373/embed",
+  "featured": "n",
+  "tags": ["scratch", "pong", "arcade", "multiplayer"]
+}

@@ -42,19 +42,31 @@ export function versionedGameAssetUrl(slug: string, filename: string): string {
 
 /** Standard carousel paths with cache-busting query params (server-only). */
 export function buildStandardGameImages(slug: string) {
-  const filenames = [
+  const publicDir = path.join(process.cwd(), "public", "games", slug);
+  const candidates = [
     GAME_ASSET_FILES.cover,
     ...Array.from(
       { length: 5 },
       (_, i) => `thumbnail${String(i + 1).padStart(2, "0")}.jpg`,
     ),
   ];
-  const versioned = filenames.map((name) => versionedGameAssetUrl(slug, name));
+  const existing = candidates.filter((name) =>
+    fs.existsSync(path.join(publicDir, name)),
+  );
+  const versioned = existing.map((name) => versionedGameAssetUrl(slug, name));
+
+  const thumbFilename = fs.existsSync(
+    path.join(publicDir, GAME_ASSET_FILES.thumbnail),
+  )
+    ? GAME_ASSET_FILES.thumbnail
+    : GAME_ASSET_FILES.cover;
+
+  const banner = versioned[0] ?? versionedGameAssetUrl(slug, thumbFilename);
 
   return {
-    thumbnail: versionedGameAssetUrl(slug, GAME_ASSET_FILES.thumbnail),
+    thumbnail: versionedGameAssetUrl(slug, thumbFilename),
     screenshots: versioned.slice(1),
-    banner: versioned[0]!,
+    banner,
   };
 }
 
